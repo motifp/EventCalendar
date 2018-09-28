@@ -1,0 +1,91 @@
+<head>
+  <script src="js/calendar.js"></script>
+  <!--
+  <script>
+    $(document).ready(function() {
+        $('.clickme').click(function(e) {
+            e.preventDefault();
+
+            boxh = $('#popup').height();
+            windowh = $(window).height();
+
+            $('#popup').css('margin-top', windowh/2 - boxh/2);
+
+            $('#popup').fadeIn();
+        });
+        $('.clicktoclose').click(function() {
+            $('#popup').fadeOut();
+        });
+    });
+</script>
+-->
+</head>
+
+<body>
+
+
+<div id="popup" class="overlay">
+  <div>
+    <div class="close">Close</div>
+    <h1>Title</h1>
+    <p>No event scheduled, check back later... </p>
+  </div>
+</div>
+
+
+
+<div class="toolbar">
+<div id="month_current"></div>
+<div id="year_current"></div>
+</div>
+
+<div class="week_container">
+  <div class="week_label">Sun</div>
+  <div class="week_label">Mon</div>
+  <div class="week_label">Tue</div>
+  <div class="week_label">Wed</div>
+  <div class="week_label">Thu</div>
+  <div class="week_label">Fri</div>
+  <div class="week_label_sat">Sat</div>
+</div>
+
+<div class="days_row1_container">
+  <div id="days_row1"></div>
+  <script>createDays1();</script>
+</div>
+
+<div class="days_row2_container">
+  <div id="days_row2"></div>
+  <script>createDays2();</script>
+</div>
+
+<div class="days_row3_container">
+  <div id="days_row3"></div>
+  <script>createDays3();</script>
+</div>
+
+<div class="days_row4_container">
+  <div id="days_row4"></div>
+  <script>createDays4();</script>
+</div>
+
+<div class="days_row5_container">
+  <div id="days_row5"></div>
+  <script>createDays5();</script>
+</div>
+
+<div class="days_row6_container">
+  <div id="days_row6"></div>
+  <script>createDays6();</script>
+</div>
+
+</body>
+
+
+
+
+<!--
+<div id="testing">
+<script></script>
+</div>
+-->
