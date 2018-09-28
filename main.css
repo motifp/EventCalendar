@@ -1,0 +1,386 @@
+#testing {
+  font-size: 3em;
+}
+
+/* * {
+  box-sizing: border-box;
+} */
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 10;
+}
+
+.overlay div {
+    width: 400px;
+    height: 200px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2em;
+    background: #333333;
+    color: #f2f2f2;
+}
+
+.overlay p {
+  font-family: "Futura", sans-serif;
+  color: #f2f2f2;
+  font-size: 16px;
+  z-index: 100;
+  height: 80px !important;
+}
+
+.close {
+  font-family: "Futura", sans-serif;
+  z-index: 200;
+  text-align: right;
+  display: inline-block !important;
+  height: 0 !important;
+  cursor: pointer;
+  position: absolute !important;
+  bottom: 0px !important;
+}
+
+.close:hover {
+  color: black;
+}
+
+.overlay h1 {
+  font-size: 20px;
+  font-family: "Futura", sans-serif;
+}
+/*
+#popup {
+  display: none;
+  border-width: 2px;
+  border-color: black;
+
+  height: 100px;
+  width: 200px;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+*/
+
+/*
+.modal {
+  position: relative;
+  padding: 20px;
+  width: 50%;
+  background: #f2f2f2;
+}
+
+.close {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  background: #f2456f;
+}
+.close:hover {
+  cursor: pointer;
+}
+
+.js .overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10; // may vary 
+  background: rgba(0,0,0,0.5); // could also include a 1px fallback png for older browsers 
+}
+.js .modal {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+}
+.js .close {
+  display: block;
+}
+*/
+
+#dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  background: red;
+}
+
+#shell {
+  top: 0;
+  left: 0;
+  position: fixed;
+  background: black;
+  opacity: 0.4;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;;
+}
+
+#eventPop {
+  position:fixed;
+  left:0;
+  right:0;
+  margin: auto;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  width: 200px;
+  height: auto;
+  padding: 15px;  
+  background: #fff;
+  box-sizing: content-box;
+  border: 3px solid black;
+}
+
+#month_current {
+  width: 50%;
+  font-family: "Futura", sans-serif;
+  letter-spacing: 5px;
+  line-height: 100px;
+  float: left;
+  display: inline-block;
+  text-align: center;
+}
+
+#year_current {
+  width: 50%;
+  font-family: "Futura", sans-serif;
+  letter-spacing: 5px;
+  line-height: 100px;
+  float: right;
+  display: inline-block;
+}
+
+.toolbar {
+  width: 100%;
+}
+
+.week_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.week_label {
+  width: 200px;
+  font-family: "Futura", sans-serif;
+  /*border: 1px solid #bfbfbf;
+  border-right: 0px; */
+  text-align: center;
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 8px 14px;
+  
+}
+
+.week_label p {
+  font-size: 1em;
+  color: #474747;
+}
+
+.week_label_sat {
+  width: 100px;
+  font-family: "Futura", sans-serif;
+  /*border: 1px solid #bfbfbf; */
+  text-align: center;
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 8px 14px;
+  
+}
+
+.week_label_sat p {
+  font-size: 1em;
+  color: #474747;
+}
+
+.days_row1_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+#days_row1 {
+  width: 200px;
+  font-family: "Futura", sans-serif;
+  /*border: 1px solid #bfbfbf;
+  border-right: 0px; */
+  text-align: center;
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 8px 0px;
+  display: flex;
+}
+
+.days_row1_days {
+  width: 200px;
+  font-family: "Futura", sans-serif;
+  /*border: 1px solid #bfbfbf;
+  border-right: 0px; */
+  text-align: center;
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 8px 10px;
+}
+
+.days_row2_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+#days_row2 {
+  width: 200px;
+  font-family: "Futura", sans-serif;
+  /*border: 1px solid #bfbfbf;
+  border-right: 0px; */
+  text-align: center;
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 8px 0px;
+  display: flex;
+}
+
+.days_row2_days {
+  width: 200px;
+  font-family: "Futura", sans-serif;
+  /*border: 1px solid #bfbfbf;
+  border-right: 0px; */
+  text-align: center;
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 8px 10px;
+}
+
+.days_row3_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+#days_row3 {
+  width: 200px;
+  font-family: "Futura", sans-serif;
+  /*border: 1px solid #bfbfbf;
+  border-right: 0px; */
+  text-align: center;
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 8px 0px;
+  display: flex;
+}
+
+.days_row3_days {
+  width: 200px;
+  font-family: "Futura", sans-serif;
+  /*border: 1px solid #bfbfbf;
+  border-right: 0px; */
+  text-align: center;
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 8px 10px;
+}
+
+.days_row4_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+#days_row4 {
+  width: 200px;
+  font-family: "Futura", sans-serif;
+  /*border: 1px solid #bfbfbf;
+  border-right: 0px; */
+  text-align: center;
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 8px 0px;
+  display: flex;
+}
+
+.days_row4_days {
+  width: 200px;
+  font-family: "Futura", sans-serif;
+  /*border: 1px solid #bfbfbf;
+  border-right: 0px; */
+  text-align: center;
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 8px 10px;
+}
+
+.days_row5_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+#days_row5 {
+  width: 200px;
+  font-family: "Futura", sans-serif;
+  /*border: 1px solid #bfbfbf;
+  border-right: 0px; */
+  text-align: center;
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 8px 0px;
+  display: flex;
+}
+
+.days_row5_days {
+  width: 200px;
+  font-family: "Futura", sans-serif;
+  /*border: 1px solid #bfbfbf;
+  border-right: 0px; */
+  text-align: center;
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 8px 10px;
+}
+
+.days_row6_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+#days_row6 {
+  width: 200px;
+  font-family: "Futura", sans-serif;
+  /*border: 1px solid #bfbfbf;
+  border-right: 0px; */
+  text-align: center;
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 8px 0px;
+  display: flex;
+}
+
+.days_row6_days {
+  width: 200px;
+  font-family: "Futura", sans-serif;
+  /*border: 1px solid #bfbfbf;
+  border-right: 0px; */
+  text-align: center;
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 8px 10px;
+}
