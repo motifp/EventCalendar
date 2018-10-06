@@ -90,28 +90,52 @@ if (date < 8) {
   } else if (days.indexOf(day) < date - 28) {
   	initial = date - 28 - days.indexOf(day) - 7;
   } else {
-  	initial = date - 28 - days.indexOf(day) + 1;
+  	initial = date - 28 - days.indexOf(day);
   }
 }
 
-var cssDays = ' {width: 200px; font-family: "Futura", sans-serif; color: #7c7c7c; text-align: center; flex-grow: 1; flex-basis: 0; padding: 8px 10px;}';
+/* testing function
+$(document).ready (function () {
+	$("#testing").append('<div>' + initial+ '</div>');
+})
+*/
 
-var cssToday = ' {width: 200px; font-family: "Futura", sans-serif; color: #070707; text-align: center; flex-grow: 1; flex-basis: 0; padding: 8px 10px;}';
+var cssDays = ' {width: 200px; font-family: "Futura", sans-serif; font-size: 16px; color: #9e9e9e; text-align: center; flex-grow: 1; flex-basis: 0; padding: 8px 10px; border: 0; cursor: pointer;}';
+
+var cssToday = ' {width: 200px; font-family: "Futura", sans-serif; font-size: 16px; color: #070707; font-weight: 600; text-align: center; flex-grow: 1; flex-basis: 0; padding: 8px 10px; border: 0; cursor: pointer;}';
+
+var cssEventDay = ' {width: 200px; font-family: "Futura", sans-serif; color: #070707; text-align: center; flex-grow: 1; flex-basis: 0; padding: 8px 10px;}';
 
 var cssNotDays = ' {visibility: hidden; width: 200px; font-family: "Futura", sans-serif; color: white !important; text-align: center; flex-grow: 1; flex-basis: 0; padding: 8px 10px;}';
 
+var cssBubble = ' {display: none; width: 10px; height: 10px; border-radius: 50%; color: red; background-color: red;}';
+
 var cssLink = ' {text-decoration: none; color: inherit;}';
 
-var dayHover = ' {color: #f2f2f2; background-color: #7c7c7c; padding: 10px;}';
+var dayHover = ' {color: #f2f2f2; background-color: #7c7c7c; padding: 8px 10px;}';
+
+var dayClicked = ' {border-style: outset; border: none; outline: 0;}';
 
 var cssPopup = ' {text-align: justify; -webkit-column-count: 3; /* Chrome, Safari, Opera */ -moz-column-count: 3; /* Firefox */ column-count: 1;}';
+
+
+const modalHTML1 = '<div id=popup-';
+const modalHTML2 = ' class="modal"><div class=event-content-';
+const modalHTML3 = ' style="background-color:#333333; margin: auto; padding: 40px; border: none; width: 40%; height: 40%;"><span class="close" onclick=closePopup()>&times;</span><style> p {font-family: "Futura", sans-serif; font-size: 16px; color: #f2f2f2; width: 80%;}</style><p>';
+const modalHTML4 = '</p></div></div>';
+
+const noEvent = 'No event scheduled, check back later... ';
+
+/*
+const cssEventContent = ' {font-family: "Futura", sans-serif; font-size: 14px; color: red; width: 80%; }';
+*/
 
 
 function createDays1() {
 
 var daysElements_1 = "";
 
-var divId_1 = "days";
+var divId_1 = "day";
 
 for (var i = 0 + initial; i < 7 + initial; i++) {
   // generate unique id
@@ -121,18 +145,44 @@ for (var i = 0 + initial; i < 7 + initial; i++) {
   	divId_1 = "day" + (i - 2);
   }
   
-  daysElements_1 += '<div id=' + divId_1 + '><a class="clickme" href="#">' + i + '</a></div>';
+  daysElements_1 += '<button id=click-' + divId_1 + ' onclick=popupFunction(' + i + ')>' + i + '</button>';
+  
+   $(modalHTML1 + divId_1 + modalHTML2 + divId_1 + modalHTML3 + noEvent + modalHTML4).appendTo(document.body);
 
+  // today?
+  if (i == date) {
+  
+  $('<style>' + '#click-' + divId_1 + cssToday + '</style>').appendTo(document.head);
+  
+    $('<style>' + '#click-' + divId_1 + ':hover' + dayHover + '</style>').appendTo(document.head);
+    
+    $('<style>' + '#click-' + divId_1 + ':focus' + dayClicked + '</style>').appendTo(document.head);
+  } else {
   // generate css styles
   if (i < 1) {
-  $('<style>' + '#' + divId_1 + cssNotDays + '</style>').appendTo(document.head);
+  $('<style>' + '#click-' + divId_1 + cssNotDays + '</style>').appendTo(document.head);
   } else {
-  $('<style>' + '#' + divId_1 + cssDays + '</style>').appendTo(document.head);
+  $('<style>' + '#click-' + divId_1 + cssDays + '</style>').appendTo(document.head);
+  
+  $('<style>' + '#click-' + divId_1 + ':hover' + dayHover + '</style>').appendTo(document.head);
+  
+  $('<style>' + '#click-' + divId_1 + ':focus' + dayClicked + '</style>').appendTo(document.head);
+  
+  /*
+  $('<style>' + '#popup-' + divId_1 + '.modal' + ' .event-content-' + divId_1  + cssEventContent + '</style>').appendTo(document.head);
+  */
+  
   }
+  }
+  
+  
+  
 }
 
 var container = document.getElementById("days_row1");
 container.innerHTML = daysElements_1;
+
+
 
 }
 
@@ -151,15 +201,25 @@ for (var i = 7 + initial; i < 14 + initial; i++) {
   	divId_2 = "day" + (i - 2);
   }
   
-  daysElements_2 += '<div id=' + divId_2 + '><a class="clickme" href="#">' + i + '</a></div>';
+  daysElements_2 += '<button id=click-' + divId_2 + ' onclick=popupFunction(' + i + ')>' + i + '</button>';
+  
+   $(modalHTML1 + divId_2 + modalHTML2 + divId_2 + modalHTML3 + noEvent + modalHTML4).appendTo(document.body);
 
   // today?
   if (i == date) {
-    $('<style>' + '#' + divId_2 + cssToday + '</style>').appendTo(document.head);
+    $('<style>' + '#click-' + divId_2 + cssToday + '</style>').appendTo(document.head);
+    
+    $('<style>' + '#click-' + divId_2 + ':hover' + dayHover + '</style>').appendTo(document.head);
+    
+     $('<style>' + '#click-' + divId_2 + ':focus' + dayClicked + '</style>').appendTo(document.head);
   } else {
   // generate css styles
   
-  $('<style>' + '#' + divId_2 + cssDays + '</style>').appendTo(document.head);
+  $('<style>' + '#click-' + divId_2 + cssDays + '</style>').appendTo(document.head);
+  
+  $('<style>' + '#click-' + divId_2 + ':hover' + dayHover + '</style>').appendTo(document.head);
+  
+   $('<style>' + '#click-' + divId_2 + ':focus' + dayClicked + '</style>').appendTo(document.head);
   }
 }
 
@@ -182,15 +242,25 @@ for (var i = 14 + initial; i < 21 + initial; i++) {
   	divId_3 = "day" + (i - 2);
   }
   
-  daysElements_3 += '<div id=' + divId_3 + '><a class="clickme" href="#">' + i + '</a></div>';
+  daysElements_3 += '<button id=click-' + divId_3 + ' onclick=popupFunction(' + i + ')>' + i + '</button>';
+  
+   $(modalHTML1 + divId_3 + modalHTML2 + divId_3 + modalHTML3 + noEvent + modalHTML4).appendTo(document.body);
 
   // today?
   if (i == date) {
-    $('<style>' + '#' + divId_3 + cssToday + '</style>').appendTo(document.head);
+    $('<style>' + '#click-' + divId_3 + cssToday + '</style>').appendTo(document.head);
+    
+    $('<style>' + '#click-' + divId_3 + ':hover' + dayHover + '</style>').appendTo(document.head);
+    
+     $('<style>' + '#click-' + divId_3 + ':focus' + dayClicked + '</style>').appendTo(document.head);
   } else {
   // generate css styles
   
-  $('<style>' + '#' + divId_3 + cssDays + '</style>').appendTo(document.head);
+  $('<style>' + '#click-' + divId_3 + cssDays + '</style>').appendTo(document.head);
+  
+  $('<style>' + '#click-' + divId_3 + ':hover' + dayHover + '</style>').appendTo(document.head);
+  
+   $('<style>' + '#click-' + divId_3 + ':focus' + dayClicked + '</style>').appendTo(document.head);
   }
 }
 
@@ -213,21 +283,27 @@ for (var i = 21 + initial; i < 28 + initial; i++) {
   	divId_4 = "day" + (i - 2);
   }
   
-  daysElements_4 += '<div id=' + divId_4 + '><a class="clickme" href="#">' + i + '</a></div>';
+daysElements_4 += '<button id=click-' + divId_4 + ' onclick=popupFunction(' + i + ')>' + i + '</button>';
   
-  $('<style>' + 'a, a:visited' + cssLink + '</style>').appendTo(document.head);
-  
-  $('<style>' + 'a:hover' + dayHover + '</style>').appendTo(document.head);
+   $(modalHTML1 + divId_4 + modalHTML2 + divId_4 + modalHTML3 + noEvent + modalHTML4).appendTo(document.body);
   
  /* $('<style>#' + divId_4 + cssPopup + '</style>').appendTo(document.head); */
   
   // today?
   if (i == date) {
-    $('<style>' + '#' + divId_4 + cssToday + '</style>').appendTo(document.head);
+    $('<style>' + '#click-' + divId_4 + cssToday + '</style>').appendTo(document.head);
+    
+    $('<style>' + '#click-' + divId_4 + ':hover' + dayHover + '</style>').appendTo(document.head);
+    
+     $('<style>' + '#click-' + divId_4 + ':focus' + dayClicked + '</style>').appendTo(document.head);
   } else {
   // generate css styles
   
-  $('<style>' + '#' + divId_4 + cssDays + '</style>').appendTo(document.head);
+  $('<style>' + '#click-' + divId_4 + cssDays + '</style>').appendTo(document.head);
+  
+  $('<style>' + '#click-' + divId_4 + ':hover' + dayHover + '</style>').appendTo(document.head);
+  
+   $('<style>' + '#click-' + divId_4 + ':focus' + dayClicked + '</style>').appendTo(document.head);
   }
 
 }
@@ -238,6 +314,10 @@ container.innerHTML = daysElements_4;
 }
 
 function createDays5() {
+if (month === "January" || "March" || "May" || "July" || "August" || "October" || "December") {
+	if (initial < -5) {
+  	return;
+  } else {
 
 var daysElements_5 = "";
 
@@ -251,23 +331,93 @@ for (var i = 28 + initial; i < 35 + initial; i++) {
   	divId_5 = "day" + (i - 2);
   }
   
-  daysElements_5 += '<div id=' + divId_5 + '><a class="clickme" href="#">' + i + '</a></div>';
-
-  // today?
-  if (i == date) {
-    $('<style>' + '#' + divId_5 + cssToday + '</style>').appendTo(document.head);
-
-  } else {
-  // generate css styles
+  daysElements_5 += '<button id=click-' + divId_5 + ' onclick=popupFunction(' + i + ')>' + i + '</button>';
   
-  $('<style>' + '#' + divId_5 + cssDays + '</style>').appendTo(document.head);
-  }
-}
+   $(modalHTML1 + divId_5 + modalHTML2 + divId_5 + modalHTML3 + noEvent + modalHTML4).appendTo(document.body);
 
-var container = document.getElementById("days_row5");
+
+  // generate css styles
+  		if (i < 31) {
+        // today?
+        if (i == date) {
+          $('<style>' + '#click-' + divId_5 + cssToday + '</style>').appendTo(document.head);
+          
+          $('<style>' + '#click-' + divId_5 + ':hover' + dayHover + '</style>').appendTo(document.head);
+          
+           $('<style>' + '#click-' + divId_5 + ':focus' + dayClicked + '</style>').appendTo(document.head);
+        } else {
+        // generate css styles
+
+        $('<style>' + '#click-' + divId_5 + cssDays + '</style>').appendTo(document.head);
+        
+        $('<style>' + '#click-' + divId_5 + ':hover' + dayHover + '</style>').appendTo(document.head);
+        
+         $('<style>' + '#click-' + divId_5 + ':focus' + dayClicked + '</style>').appendTo(document.head);
+        }
+      } else {
+      	$('<style>' + '#click-' + divId_5 + cssNotDays + '</style>').appendTo(document.head);
+      }
+    }
+
+		var container = document.getElementById("days_row5");
 container.innerHTML = daysElements_5;
 
+ }
+} else if(month == "February") {
 
+	return;
+  
+/*
+		if (leapYear(year) == true) {
+      if (initial) {
+        return;
+      } else {
+        // leap year thingy
+      }
+    } else if (initial) {
+    	return;
+    } else {
+      // non leap year thingy
+    } */
+  } else {
+		if (initial < -4) {
+      return;
+      
+    } else {
+      // knuckel month thingy
+      var daysElements_5_k = "";
+
+			var divId_5_k = "days";
+
+			for (var i_k = 35 + initial; i_k < 42 + initial; i_k++) {
+  // generate unique id
+ 			 if (divId_5_k == "day") {
+  	divId_5_k += (i_k - 2);
+  } else {
+  	divId_5_k = "day" + (i_k - 2);
+  }
+  
+ 		 	daysElements_5_k += '<button id=click-' + divId_5_k + ' onclick=popupFunction(' + i_k + ')>' + i_k + '</button>';
+  
+   $(modalHTML1 + divId_5_k + modalHTML2 + divId_5_k + modalHTML3 + noEvent + modalHTML4).appendTo(document.body);
+
+  // generate css styles
+  			if (i_k < 32) {
+      	  $('<style>' + '#click-' + divId_5_k + cssDays + '</style>').appendTo(document.head);
+          
+          $('<style>' + '#click-' + divId_5_k + ':hover' + dayHover + '</style>').appendTo(document.head);
+          
+           $('<style>' + '#click-' + divId_5_k + ':focus' + dayClicked + '</style>').appendTo(document.head);
+    	  } else {
+      		$('<style>' + '#click-' + divId_5_k + cssNotDays + '</style>').appendTo(document.head);
+   	   }
+  	  }
+
+			var container_k = document.getElementById("days_row5");
+container_k.innerHTML = daysElements_5_k;
+
+}
+}
 }
 
 function createDays6() {
@@ -288,20 +438,30 @@ if (month === "January" || "March" || "May" || "July" || "August" || "October" |
   	divId_6 = "day" + (i - 2);
   }
   
- 		daysElements_6 += '<div id=' + divId_6 + '><a class="clickme" href="#">' + i + '</a></div>';
+ 		daysElements_6 += '<button id=click-' + divId_6 + ' onclick=popupFunction(' + i + ')>' + i + '</button>';
+  
+   $(modalHTML1 + divId_6 + modalHTML2 + divId_6 + modalHTML3 + noEvent + modalHTML4).appendTo(document.body);
 
   // generate css styles
   		if (i < 31) {
         // today?
         if (i == date) {
-          $('<style>' + '#' + divId_6 + cssToday + '</style>').appendTo(document.head);
+          $('<style>' + '#click-' + divId_6 + cssToday + '</style>').appendTo(document.head);
+          
+          $('<style>' + '#click-' + divId_6 + ':hover' + dayHover + '</style>').appendTo(document.head);
+          
+           $('<style>' + '#click-' + divId_6 + ':focus' + dayClicked + '</style>').appendTo(document.head);
         } else {
         // generate css styles
 
-        $('<style>' + '#' + divId_6 + cssDays + '</style>').appendTo(document.head);
+        $('<style>' + '#click-' + divId_6 + cssDays + '</style>').appendTo(document.head);
+        
+        $('<style>' + '#click-' + divId_6 + ':hover' + dayHover + '</style>').appendTo(document.head);
+        
+         $('<style>' + '#click-' + divId_6 + ':focus' + dayClicked + '</style>').appendTo(document.head);
         }
       } else {
-      	$('<style>' + '#' + divId_6 + cssNotDays + '</style>').appendTo(document.head);
+      	$('<style>' + '#click-' + divId_6 + cssNotDays + '</style>').appendTo(document.head);
       }
     }
 
@@ -342,13 +502,19 @@ container.innerHTML = daysElements_6;
   	divId_6_k = "day" + (i_k - 2);
   }
   
- 		 	daysElements_6_k += '<div id=' + divId_6_k + '><a href="#" target=_self onClick="show()" class=left>' + i_k + '</a></div>';
+ 		 	daysElements_6_k += '<button id=click-' + divId_6_k + ' onclick=popupFunction(' + i_k + ')>' + i_k + '</button>';
+  
+   $(modalHTML1 + divId_6_k + modalHTML2 + divId_6_k + modalHTML3 + noEvent + modalHTML4).appendTo(document.body);
 
   // generate css styles
   			if (i_k < 32) {
-      	  $('<style>' + '#' + divId_6_k + cssDays + '</style>').appendTo(document.head);
+      	  $('<style>' + '#click-' + divId_6_k + cssDays + '</style>').appendTo(document.head);
+          
+          $('<style>' + '#click-' + divId_6_k + ':hover' + dayHover + '</style>').appendTo(document.head);
+          
+           $('<style>' + '#click-' + divId_6_k + ':focus' + dayClicked + '</style>').appendTo(document.head);
     	  } else {
-      		$('<style>' + '#' + divId_6_k + cssNotDays + '</style>').appendTo(document.head);
+      		$('<style>' + '#click-' + divId_6_k + cssNotDays + '</style>').appendTo(document.head);
    	   }
   	  }
 
@@ -358,29 +524,68 @@ container_k.innerHTML = daysElements_6_k;
   } 
 } 
 
-const eventDot = "width: 10px; heigth: 10px; border-radius: 100%; background: red;";
-
- $(document).ready(function() {
-        $('.clickme').click(function(e) {
-            e.preventDefault();
-
-            boxh = $('#popup').height();
-            windowh = $(window).height();
-
-            $('#popup').css('margin-top', windowh/2 - boxh/2);
-
-            $('#popup').show();
-        });
-        $('.close').click(function() {
-            $('#popup').hide();
-        }); 
- });
- 
-
-$(document).ready (function() {
-	$(".p").before("<h1>" + month + date + "</h1>");
-})
+/*
+$(document).ready(function() {
+  for (var i = 0; i < 32; i ++) {
+    var popup = document.getElementByClassName("modal");
+    var click = document.getElementById("click-day" + i);
+    var close = document.getElementById("close")[0];
     
+    $(".click-day" + i).click(function(e) {
+      e.preventDefault();
+      
+      $(".popup").show();
+    });
+    
+    close.onclick = function() {
+      popup.style.display = "none";
+    }
+  }
+})
+*/
+
+
+function popupFunction(n) {
+
+  
+ 
+    $("#popup-day" + n).show();
+
+  
+}
+
+function closePopup(n) {
+
+    $('<style>' + '#popup-day' + n + 'z-index: 0;' + '</style>').appendTo(document.head);
+
+     $(".modal").hide();
+
+}
+
+ 
+/* 
+function getEventDate() {
+
+	$(document).ready (function() {
+  
+  $(document).on("click", "a", function() {
+    return (this.id);
+  });
+})
+}  
+*/
+
+
+function addEvent(dayNum, event) {
+	for (var i=1; i < 32; i++) {
+  	if (i == dayNum) {
+    	 $('<style>' + '#click-day' + (i - 2) + cssEventDay + '</style>').appendTo(document.head);
+       
+       $(".event-content-day" + i + " p").replaceWith('<p>' + event + '</p>');
+    
+    }
+  }
+}
 
 /*
 function addEvent(dayNum, event) {
@@ -467,3 +672,6 @@ $overlay.on('click', function(e) {
   $overlay.hide();
 });
 */
+
+
+
