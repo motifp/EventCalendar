@@ -1,2 +1,2 @@
 # EventCalendar
-An event calendar for website that's not a mockup
+An event calendar website plugin that's not a mockup
